@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
 import { doctors } from "@/data/doctors";
 
-export default function AppointmentsPage() {
+function AppointmentsContent() {
     
     const [patientName, setPatientName] = useState("");
     const [email, setEmail] = useState("");
@@ -196,7 +196,15 @@ async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 
         </div>        
     
-      </main>
+      </main>   
     </>
+  );
+}
+
+export default function AppointmentsPage() {
+  return (
+    <Suspense fallback={<p className="p-6">Loading appointment form...</p>}>
+      <AppointmentsContent />
+    </Suspense>
   );
 }
